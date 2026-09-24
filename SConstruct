@@ -11,10 +11,12 @@ env["ENV"].update(x for x in os.environ.items() if x[0].startswith("CCC_"))
 env.Append(CPPPATH = ['#src'])
 env.Append(LIBPATH = ['#src'])
 env.Append(CFLAGS = ['-g'])
+env.Append(CFLAGS = ['-fsanitize=thread', '-fno-omit-frame-pointer'])
+env.Append(LINKFLAGS = ['-fsanitize=thread'])
 
-print "===================================================="
-print "Compiling Electric Fence for " + env['platform']
-print "===================================================="
+print("====================================================")
+print("Compiling Electric Fence for " + env['platform'])
+print("====================================================")
 
 if env['platform'] == 'hp-ux':
   env.Append(CFLAGS = ['-Aa', '-D_HPUX_SOURCE', '-DPAGE_PROTECTION_VIOLATED_SIGNAL=SIGBUS'])

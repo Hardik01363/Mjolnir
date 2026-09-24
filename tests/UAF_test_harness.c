@@ -6,8 +6,8 @@
 
 //configs (didnt create a config.h file as this is a pretty small project)
 #define ARR_SIZE 16 //small so as to increase thread contention
-#define NUM_THREADS 16 //my machine only supports upto 8 threads, so, not going too overboard here. but, higher no. of threads would be better for testing.
-#define ITERS_PER_THREAD 1000000
+#define NUM_THREADS 8 //my machine only supports upto 8 threads, so, not going too overboard here. but, higher no. of threads would be better for testing.
+#define ITERS_PER_THREAD 10000
 #define INNER_ITERS 4
 
 typedef struct Node {long value;} Node;

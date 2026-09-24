@@ -1,0 +1,937 @@
+==================
+WARNING: ThreadSanitizer: data race (pid=9860)
+  Write of size 8 at 0x7204000000b0 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x7204000000b0 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=9863, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=9862, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=9860)
+  Read of size 8 at 0x720400000050 by thread T3:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000050 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x720400000050 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T3 (tid=9864, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=9862, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=9970)
+  Read of size 8 at 0x720400000810 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000810 by thread T3:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x720400000810 allocated by thread T3:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=9972, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T3 (tid=9974, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=9970)
+  Write of size 8 at 0x720400000040 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000040 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=9973, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=9972, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=9970)
+  Write of size 8 at 0x720400000ab0 by thread T5:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:41:21 (harness_tsan_linked+0x4bb6a7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000ab0 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T5 (tid=9977, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=9973, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+ThreadSanitizer: reported 3 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10000)
+  Read of size 8 at 0x720400000080 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000080 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10003, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10002, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10000)
+  Write of size 8 at 0x720400001000 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400001000 by thread T3:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10003, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T3 (tid=10004, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10000)
+  Write of size 8 at 0x720400002990 by thread T4:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:41:21 (harness_tsan_linked+0x4bb6a7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400002990 by thread T10:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T4 (tid=10005, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T10 (tid=10012, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+ThreadSanitizer: reported 3 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10030)
+  Read of size 8 at 0x720400000080 by thread T3:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000080 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x720400000080 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T3 (tid=10034, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10032, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10030)
+  Write of size 8 at 0x720400000000 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000000 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10033, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10032, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10112)
+  Write of size 8 at 0x720400000000 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000000 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10115, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10114, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10112)
+  Read of size 8 at 0x720400000090 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000090 by thread T3:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x720400000090 allocated by thread T3:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10114, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T3 (tid=10116, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10141)
+  Read of size 8 at 0x720400000820 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000820 by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x720400000820 allocated by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10143, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10144, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10141)
+  Write of size 8 at 0x7204000000b0 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x7204000000b0 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10144, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10143, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10217)
+  Read of size 8 at 0x7204000000d0 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x7204000000d0 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x7204000000d0 allocated by thread T3:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10220, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10219, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T3 (tid=10221, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10217)
+  Write of size 8 at 0x720400000800 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000800 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10220, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10219, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10243)
+  Write of size 8 at 0x720400000010 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000010 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10246, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10245, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10243)
+  Read of size 8 at 0x7204000000f0 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x7204000000f0 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x7204000000f0 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10246, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10245, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: heap-use-after-free (pid=10243)
+  Read of size 8 at 0x720400001c80 by thread T4:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400001c80 by thread T1:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:41:21 (harness_tsan_linked+0x4bb6a7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T4 (tid=10249, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10245, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: heap-use-after-free /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 3 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10316)
+  Read of size 8 at 0x720400000820 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000820 by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10318, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10319, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10316)
+  Write of size 8 at 0x7204000008c0 by thread T1:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x7204000008c0 by thread T4:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10318, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T4 (tid=10321, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=10345)
+  Write of size 8 at 0x720400000840 by thread T4:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous read of size 8 at 0x720400000840 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T4 (tid=10350, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10348, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=10345)
+  Read of size 8 at 0x720400000810 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Previous write of size 8 at 0x720400000810 by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Location is heap block of size 8 at 0x720400000810 allocated by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T1 (tid=10347, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+  Thread T2 (tid=10348, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb96a) (BuildId: c497cda34504f11d16389025774176aac8a85bb5)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11489)
+  Read of size 8 at 0x720400000800 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x720400000800 by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x720400000800 allocated by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11491, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11492, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11489)
+  Write of size 8 at 0x720400000030 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000030 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11492, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11491, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11500)
+  Read of size 8 at 0x720400000040 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x720400000040 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x720400000040 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11503, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11502, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11500)
+  Write of size 8 at 0x720400000050 by thread T3:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000050 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T3 (tid=11504, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11502, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11511)
+  Write of size 8 at 0x7204000000d0 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x7204000000d0 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11514, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11513, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11511)
+  Read of size 8 at 0x7204000000a0 by thread T3:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x7204000000a0 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x7204000000a0 allocated by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T3 (tid=11515, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11513, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11514, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11522)
+  Write of size 8 at 0x720400000040 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000040 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11525, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11524, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11522)
+  Read of size 8 at 0x720400000090 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x720400000090 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x720400000090 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11525, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11524, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11533)
+  Write of size 8 at 0x720400000040 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000040 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11536, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11535, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11533)
+  Read of size 8 at 0x7204000000a0 by thread T3:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x7204000000a0 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x7204000000a0 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T3 (tid=11537, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11535, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11544)
+  Read of size 8 at 0x720400000070 by thread T3:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x720400000070 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x720400000070 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T3 (tid=11548, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11546, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11544)
+  Write of size 8 at 0x720400000060 by thread T1:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000060 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11546, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11547, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11555)
+  Write of size 8 at 0x720400000020 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000020 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11558, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11557, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11555)
+  Read of size 8 at 0x7204000000a0 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x7204000000a0 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x7204000000a0 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11558, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11557, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11566)
+  Write of size 8 at 0x720400000050 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000050 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11569, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11568, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11566)
+  Read of size 8 at 0x7204000000c0 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x7204000000c0 by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x7204000000c0 allocated by thread T1:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11569, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11568, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11580)
+  Write of size 8 at 0x7204000008b0 by thread T1:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x7204000008b0 by thread T2:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11582, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11583, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11580)
+  Read of size 8 at 0x720400000850 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x720400000850 by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x720400000850 allocated by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11582, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11583, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
+==================
+WARNING: ThreadSanitizer: data race (pid=11592)
+  Read of size 8 at 0x720400000800 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous write of size 8 at 0x720400000800 by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Location is heap block of size 8 at 0x720400000800 allocated by thread T2:
+    #0 malloc <null> (harness_tsan_linked+0x433904) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:37:27 (harness_tsan_linked+0x4bb5f6) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11594, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11595, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 in worker
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=11592)
+  Write of size 8 at 0x720400000030 by thread T2:
+    #0 free <null> (harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:47:21 (harness_tsan_linked+0x4bb72d) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Previous read of size 8 at 0x720400000030 by thread T1:
+    #0 worker /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:58:38 (harness_tsan_linked+0x4bb7b7) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T2 (tid=11595, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+  Thread T1 (tid=11594, running) created by main thread at:
+    #0 pthread_create <null> (harness_tsan_linked+0x435c9e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+    #1 main /home/hardikkhandelwal/Mjolnir/tests/UAF_test_harness.c:73:9 (harness_tsan_linked+0x4bb952) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c)
+
+SUMMARY: ThreadSanitizer: data race (/home/hardikkhandelwal/Mjolnir/harness_tsan_linked+0x43442e) (BuildId: 7ee32e2201cad9953aac9b6fd9b6daff50c8f21c) in free
+==================
+ThreadSanitizer: reported 2 warnings
+Run completed without triggering a UAF this time
