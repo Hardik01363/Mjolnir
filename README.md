@@ -1,79 +1,64 @@
-Electric Fence 3.0
-=========
+# Mjolnir
 
-Electric Fence is a different kind of malloc() debugger.
+Mjolnir is a project I've built on top of Electric Fence, a memory debugger that uses guard pages to catch memory bugs. The goal of this project is to take Electric Fence, fix a concurrency bug in its own internal code, and turn it into a fast, thread safe tool that can reliably catch use after free bugs and race conditions in multi threaded programs, while also giving a clear, structured report of how each bug happened.
 
-It uses the virtual memory hardware of your system to detect when
-software overruns the boundaries of a malloc() buffer. It will also
-detect any accesses of memory that has been released by free().
-Because it uses the VM hardware for detection, Electric Fence stops
-your program on the first instruction that causes a bounds violation.
-It's then trivial to use a debugger to display the offending statement.
+## Why this project exists
 
-This version of Electric Fence should run on:
-  - Linux kernel 1.1.83 or later
-  - All System V Revision 4 platforms including:
-    - Every known 386 System V
-    - Solaris 2.x
-    - SGI IRIX 5.0 or later
-  - IBM AIX
-  - Solaris 4.x or later (using an ANSI C compiler + static linking)
-  - HP/UX 9.01 or later
-  - OSF 1.3 (and possibly earlier versions) on a DECalpha
-  - Haiku (and maybe BeOS)
+While comparing different memory debugging tools on a deliberately built concurrent use after free bug, I found that Electric Fence consistently failed to catch the bug, even though it is a tool built specifically for this kind of problem. Tools like ASan, TSan, and Helgrind caught the bug reliably, but Electric Fence missed it every single time. The reason turned out to be that Electric Fence keeps an internal table to track every allocation, and this table has no protection at all when multiple threads use it at once. This project exists to fix that problem properly and then push the tool further.
 
-Electric Fence will probably port to any ANSI/POSIX system that
-provides mmap(), and mprotect(), as long as mprotect() has the
-capability to turn off all access to a memory page, and mmap()
-can use /dev/zero or the MAP_ANONYMOUS flag to create virtual
-memory pages.
+## What my project does
 
-Build requirements
------
+This project has three main parts.
 
-The only real build requirement is a C compiler and the SCons build system.
+**Part one, fix Electric Fence with locks.** Proper synchronization is added around the internal allocation table so it can be safely used by many threads at once. This is tested and compared against the original unsafe version to show the improvement in detection.
 
-[SCons] is a python based software construction tool that has been ported to
-most platforms and is available in most Linux distribution repositories.
+**Part two, make it lock free.** Once the locked version is working correctly, the locks are replaced with atomic, compare and swap based code, so the tool stays fast and close to native speed while still being fully thread safe.
 
-Build
------
-  - To compile
-    - ```scons```
-  - To clean
-    - ```scons -c```
+**Part three, add a structured reporting layer.** Instead of Electric Fence just crashing with a plain segmentation fault, an internal log records every allocation, free, and access along with the thread id and a timestamp. When a bug is caught, this log is used to build a clear report showing which thread allocated the memory, which thread freed it, which thread accessed it after, and in what order. This also allows the tool to automatically tell apart two kinds of bugs, one where memory is accessed after being freed but before it is reused, and (a harder one to catch) where the memory was already reused for a new allocation before the bad access happened.
 
-Usage
------
+## Project background
 
-Using Electric Fence is easy. You can use it multiple ways:
+Electric Fence gives every allocation its own memory using mmap, and places a guard page next to it using mprotect. When memory is freed, the page can be permanently locked so that any later access causes a real crash. This method is simple and fast, but the original code was written before multi threaded programs were common, so its internal bookkeeping was never made safe for concurrent use. This project fixes exactly that, while keeping the speed and simplicity that made Electric Fence useful in the first place.
 
-  - Link the generated static ```libefence.a``` archive into your application at build.
-  - Preload the generated shared library ```libefence.so``` at runtime via the following:
-    - Linux / Haiku / Solaris / HP-UX
-      - ```LD_PRELOAD=./path/to/library/libefence.so  /bin/myapplication```
-    - AIX 5.3+ (32-bit)
-      - ```LDR_PRELOAD=./path/to/library/libefence.so  /bin/myapplication```
-    - AIX 5.3+ (64-bit)
-      - ```LDR_PRELOAD64=./path/to/library/libefence.so  /bin/myapplication```
+## Build
 
-Authors
------
+This project builds the same way as the original Electric Fence.
 
-  - Alexander von Gluck IV <kallisti5@unixzen.com>
-  - Bruce Perens <bruce@pixar.com>
+To build, run
+```
+scons
+```
 
+To clean a build, run
+```
+scons -c
+```
 
-Original Author
------
+## Usage
 
-Thanks go out to the original author Bruce Perens <Bruce@Pixar.com> for creating such a simple, yet powerful tool that is extremely useful to this day.
+Electric Fence can be used the same way as before, either by linking the built static library into your application, or by preloading the shared library at runtime.
 
-I chose to fork continuing the "Electric Fence" name as the project seems dead in the water developmentally. If any of the original authors want to reclaim this name, please reach out to me and I can rename this fork.
+Example, on Linux
+```
+LD_PRELOAD=./path/to/library/libefence.so /bin/myapplication
+```
 
-License
------
+The environment variable EF_PROTECT_FREE should be set to 1 so that freed pages are permanently locked instead of being reused right away. This is required for reliable detection of use after free bugs, not just memory overruns.
+
+## Reports
+
+Two reports are part of this project.
+
+**Report one** compares detection results before and after the locked fix is applied.
+
+**Report two** compares speed, detection rate, and overhead between the locked version and the lock free version, along with the overhead compared to running with no protection at all.
+
+Both reports will be added to this repository once complete.
+
+## Credit
+
+This project is built directly on top of Electric Fence. Full credit for the original tool goes to Bruce Perens, the original author, and to Alexander von Gluck IV, who maintains the actively developed fork this project is based on. Without their work, none of this would be possible.
+
+## License
 
 Electric Fence is released under the GPLv2 license.
-
-[SCons]:http://www.scons.org/
