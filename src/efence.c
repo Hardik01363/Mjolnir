@@ -194,30 +194,39 @@ static size_t		bytesPerPage = 0;
  /*
  * mutex to enable multithreaded operation
  */
-static pthread_mutex_t mutex ;
-static pid_t mutexpid=0;
-static int locknr=0;
+static pthread_mutex_t mutex;
+static pthread_once_t mutex_once = PTHREAD_ONCE_INIT;
 
+/*
+ * mutex_setup runs exactly once, no matter how many threads race to
+ * call lock() for the first time. It builds a recursive mutex, since
+ * the allocator's own functions call each other while already holding
+ * the lock, calloc() calls malloc(), realloc() calls free(), and
+ * allocateMoreSlots() calls both malloc() and free(). A plain mutex
+ * would deadlock a thread against itself in every one of those cases.
+ */
+static void
+mutex_setup(void)
+{
+	pthread_mutexattr_t attr;
 
-static void lock() {
-    if (pthread_mutex_trylock(&mutex)) {
-       if (mutexpid==getpid()) {
-           locknr++;
-           return;
-       } else {
-           pthread_mutex_lock(&mutex);
-       }
-    } 
-    mutexpid=getpid();
-    locknr=1;
+	pthread_mutexattr_init(&attr);
+	pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+	pthread_mutex_init(&mutex, &attr);
+	pthread_mutexattr_destroy(&attr);
 }
 
-static void unlock() {
-    locknr--;
-    if (!locknr) {
-       mutexpid=0;
-       pthread_mutex_unlock(&mutex);
-    }
+static void
+lock(void)
+{
+	pthread_once(&mutex_once, mutex_setup);
+	pthread_mutex_lock(&mutex);
+}
+
+static void
+unlock(void)
+{
+	pthread_mutex_unlock(&mutex);
 }
 
 /*
@@ -831,16 +840,26 @@ realloc(void * oldBuffer, size_t newSize)
 extern C_LINKAGE void *
 malloc(size_t size)
 {
-        void  *allocation;   
- 
-        if ( allocationList == 0 ) {
-                pthread_mutex_init(&mutex, NULL); 
-                initialize();   /* This sets EF_ALIGNMENT */
-        }       
-        lock();
-        allocation=memalign(EF_ALIGNMENT, size); 
+	void  *allocation;
 
-        unlock();
+	/*
+	 * lock() is now called first. This means the allocationList == 0
+	 * check below, and the initialize() call it guards, happen while
+	 * the mutex is already held. If two threads both call malloc()
+	 * for the very first time at once, only one gets through lock()
+	 * first, initializes everything, and releases. The second thread
+	 * then acquires the lock and sees allocationList already set,
+	 * so it skips initialize() entirely instead of racing on it.
+	 */
+	lock();
+
+	if ( allocationList == 0 ) {
+		initialize();   /* This sets EF_ALIGNMENT */
+	}
+
+	allocation=memalign(EF_ALIGNMENT, size);
+
+	unlock();
 
 	return allocation;
 }
