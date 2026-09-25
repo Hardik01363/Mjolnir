@@ -1,3 +1,5 @@
+This is the baseline report before my mutex and timestamp fixes of ElectricFence.
+
 ==================
 WARNING: ThreadSanitizer: data race (pid=9860)
   Write of size 8 at 0x7204000000b0 by thread T2:
